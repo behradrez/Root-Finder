@@ -1,12 +1,20 @@
 fprintf("Testing example functions...");
-funcs = ["x-cos(x)", "x-cos(x)", "x^3 – 3*x^2+3*x-1", "x^3 – 3*x^2+3*x-1"];
+funcs = ["x-cos(x)", "x-cos(x)", "x^3-3*x^2+3*x-1", "x^3 - 3*x^2+3*x-1"];
 xmins = [0, 0.5, 0, 0.75];
 xmaxes = [1, 0.9, 1.5, 1.6];
 
 tol = 1e-8;
 for i=1:length(funcs)
-    x = bisectsolve(funcs(i), xminx(i), xmaxes(i), 1e-8);
+    x = bisectsolve(funcs(i), xmins(i), xmaxes(i), 1e-8);
     assert(abs(eval(funcs(i))) <= tol, "Root value at " + string(x) + " not less than error");
 end
+fprintf("Example functions passed\n")
 
-fprintf("Tests passed!");
+% Same sign xmin & xmax should error
+try
+    bisectsolve('x+10', 100, 200, 1e-8);
+    assert(false, "Error was not thrown");
+catch
+    fprintf("Assertion Passed\n");
+end
+fprintf("All Tests passed!\n");

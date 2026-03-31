@@ -7,7 +7,10 @@ function [x] = bisectsolve(fofx, xmin, xmax, error)
     % Outputs of function at given b,c values get stored here
     c_out = evaluate_func(c, fofx);
     b_out = evaluate_func(b, fofx);
+    a_out = evaluate_func(a, fofx);
 
+    assert(a_out * b_out < 0);
+    
     % Exit condition: requires c's output being far enough from b's output, 
     % and for it to also be within tolerance to 0
     while abs(c_out - b_out) > error || abs(c_out) > error
